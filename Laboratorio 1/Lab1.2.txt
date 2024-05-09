@@ -1,0 +1,35 @@
+// Online Java Compiler
+// Use this editor to write, compile and run your Java code online
+import java.util.concurrent.*;
+
+public class EjemploConcurrenciaJava {
+    public static void main(String args[]) {
+        //Crear un ExecutorService para administrar hilos
+        ExecutorService executor = Executors.newFixedThreadPool(3);
+        
+        //Crear tareas (Runnable) que se ejecutaran en paralelo
+        Runnable tarea1 = () -> {
+            for (int i=0; i < 5; i++){
+                System.out.println("Tarea 1:"+i);
+            }
+        };
+        Runnable tarea2 = () -> {
+            for (int i=0; i < 5; i++){
+                System.out.println("Tarea 2:"+i);
+            }
+        };
+        Runnable tarea3 = () -> {
+            for (int i=0; i < 5; i++){
+                System.out.println("Tarea 3:"+i);
+            }
+        };
+        //Ejecutar las tareas en hilos separados
+        executor.execute(tarea1);
+        executor.execute(tarea2);
+        executor.execute(tarea3);
+        
+        //Cerrar el ExevutorService cuando ya no se necesita
+        executor.shutdown();
+            
+    }
+}
