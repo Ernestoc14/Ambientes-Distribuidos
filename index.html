@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hello World</title>
+    <style>
+      body {
+        background-color: #232f3e;
+      }
+      label,
+      button {
+        color: #ff9900;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        margin-left: 20px;
+      }
+    </style>
+    <script>
+      var callAPI = (firstName, lastName) => {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var raw = JSON.stringify({ firstName: firstName, lastName: lastName });
+        var requestOptions = {
+          method: "POST",
+          headers: myHeaders,
+          body: raw,
+          redirect: "follow",
+        };
+        fetch(
+          "https://1tszxpze0d.execute-api.us-west-2.amazonaws.com/dev",
+          requestOptions
+        )
+          .then((response) => response.text())
+          .then((result) => alert(JSON.parse(result).body))
+          .catch((error) => console.log("error", error));
+      };
+    </script>
+  </head>
+  <body>
+    <form>
+      <label for="firstName">Nombre:</label>
+      <input type="text" id="fName" />
+      <label for="lastName">Apellido:</label>
+      <input type="text" id="lName" />
+      <button
+        type="button"
+        onclick="callAPI(document.getElementById('fName').value, document.getElementById('lName').value)"
+      >
+        Invocar API
+      </button>
+    </form>
+  </body>
+</html>
